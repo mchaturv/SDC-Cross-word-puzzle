@@ -36,24 +36,25 @@ Three java files are implementing the GridPoints, Place Holder, Intersection, an
 
 * PlaceHolder.java: a Placeholder is a place for inserting words in a crossword puzzle. For instance, below given is the place holder starting at grid point (x=0, y=0), with size ‘0’ and oriented horizontally. The crossword puzzle consists of the number of such placeholders. The same Implementation is provided in the class file.
 
-![PlaceHolder](/images/logo.png)
-Format: ![Alt Text](url)
+![PlaceHolder](/images/placeholder.png)
 
-				           PlaceHolder (x = 0, y =0, size = 3, orientation = horizontal,
-							Set<String> possible word of length 3)
+
+	               PlaceHolder (x = 0, y =0, size = 3, orientation = horizontal, Set<String> possible word of length 3)
+		       
 * Intersection.java: Each Crossword puzzle will have multiple Horizontal and vertical place holders which will intersect with one another at some point, those points are called as an intersection. We are treating the intersection as an object formed by two placeholders at point.
 For instance, below are the two Placeholder pl1 and pl2 meeting at some point say
 GridPoint (x=3, y =1) or index [3][4]. So we treat this object made up of placeholder pl1, placeholder pl2 and the point of intersection (x=3, y=1).
  
- 
+ ![PlaceHolder](/images/intersection.png)
  	
- 
  
  			Intersection [Placeholder P1, Placeholder p2, Grid Point(X=3,Y=1)]
  
  
 
 * CrossWordPuzzle.java: Provides blueprints of the puzzle made up of the GridPoint(indexes), List of all the Placeholders and the set of all the intersections on a defined matrix of given row and column size.
+
+![PlaceHolder](/images/crossword.png)
 
 
 
@@ -70,13 +71,7 @@ The Crossword the object uses below data structure to store and manage the data:
  
  
 * Character[] [] : Represent Matrix of the provided row and column size which is eventually used by the placeholder to fill in  and represent graphically as a crossword puzzle.
-         
- 
- 
- 
- 
- 
- 
+        
 The above forms Crossword object, remaining data structured used in “FillInPuzzle” class areas shown below and are used while solving the puzzle.
  
 * Set of a visited word: We use this while solving the puzzle to keep the track of the words which are already used in filling any of the placeholders, so that they can not be considered by another placeholder for filling.
@@ -96,50 +91,51 @@ Following are the assumptions made while the implementation of the fill-in puzzl
  
 ## Key algorithms and design elements
  
-1.	Loading the puzzle: This Method validates the input provided and load the valid data to form the puzzle. 
+1. Loading the puzzle: This Method validates the input provided and load the valid data to form the puzzle. 
 
-  i.	The first line data is considered to get the row and column size of the puzzle to be formed. Also, the word count is taken.
+  * The first line data is considered to get the row and column size of the puzzle to be formed. Also, the word count is taken.
   
-  ii.	 Then the further data is taken and every line a placeholder object is created with start point as Grid Point(x,y) and size , and then placed into a list of placeholders.
+  * Then the further data is taken and every line a placeholder object is created with start point as Grid Point(x,y) and size , and then placed into a list of placeholders.
   
-  iii.	Once the Place Holder object are created, then the words provided in input are processed.
-      * Based on the length of the word, list of placeholders is iterated and comparing the size of the placeholder and length of the word, the words are placed into a set               called “setofPotentialCandidateWords” and allocated to the particular placeholder. 
-      * This process is repeated for every word.
-    
-  iv.	At the End a crossword puzzle object is created where the row size, column size and list of Placeholder’s are allocated.
+  * Once the Place Holder object are created, then the words provided in input are processed.
+  
+	I. Based on the length of the word, list of placeholders is iterated and comparing the size of the placeholder and length of the word, the words are placed into a set               called “setofPotentialCandidateWords” and allocated to the particular placeholder. 
 
-  v.	Once the Object of the Crossword puzzle is created, it internally takes care of finding the intersection between the placeholder and store all the intersection object in a       set as a part of crossword puzzle object.
+	II. This process is repeated for every word.
+    
+  * At the End a crossword puzzle object is created where the row size, column size and list of Placeholder’s are allocated.
+
+  * Once the Object of the Crossword puzzle is created, it internally takes care of finding the intersection between the placeholder and store all the intersection object in a       set as a part of crossword puzzle object.
 
 
 
-2.	Solving the Puzzle: We take the Crossword puzzle object and fetch the Matrix representation of the puzzle in form of 2d character [][] array. We also fetch the list of placeholders stored in crossword object. Then we follow below steps to solve the Puzzle.
-    *	Start a method SolvePuzzle() which accept the character array and the list of placeholders.
+2. Solving the Puzzle: We take the Crossword puzzle object and fetch the Matrix representation of the puzzle in form of 2d character [][] array. We also fetch the list of placeholders stored in crossword object. Then we follow below steps to solve the Puzzle.
+
+    * Start a method SolvePuzzle() which accept the character array and the list of placeholders.
     
-    I.	We take out the last element(placeholder) say PL1 from the list of placeholders.
-    
-    II.	We add PL1 in the visited set of the placeholder
-    
-    III.	We find out the intersection formed by the placeholder PL2.
-          -  Intersection (PL1, PL2, (x,y)) 
-    
-    IV.	With each intersection we find out the other related placeholder PL2.
-    
-    V.	We check if the PL2 is already visited or not, if not we shuffle the position of the PL2 in the list of placeholders to make it to last element.
-    
-    VI.	We then try filling out the placeholder PL1 with all the possible candidate words.
-    
-    VII.	If the Word fits, we call the SolvePuzzle() method Again(Recursively) with new filed character array[][] and list of placeholder(PL1 removed and PL2(forming                     Intersection with PL1) moved to end).
+	I. We take out the last element(placeholder) say PL1 from the list of placeholders.
+
+	II. We add PL1 in the visited set of the placeholder
+
+	III. We find out the intersection formed by the placeholder PL2.
+	  -  Intersection (PL1, PL2, (x,y)) 
+
+	IV. With each intersection we find out the other related placeholder PL2.
+
+	V. We check if the PL2 is already visited or not, if not we shuffle the position of the PL2 in the list of placeholders to make it to last element.
+
+	VI. We then try filling out the placeholder PL1 with all the possible candidate words.
+
+	VII. If the Word fits, we call the SolvePuzzle() method Again(Recursively) with new filed character array[][] and list of placeholder(PL1 removed and  PL2(forming   		Intersection with PL1) moved to end).
           
-          *	Each Call to the Method Solve Puzzle () returns filed character array[][] if the puzzle is successfully solve for those placeholder, otherwise it return false.
-          
-          *	Each return from recursive SolvePuzzle() method contributes to end result.
-          
-          * If the return is null, we backtrack and try with another possible candidate Word till all the placeholder are visited and all the words are tried for each place                 holders.
+    * Each Call to the Method Solve Puzzle () returns filed character array[][] if the puzzle is successfully solve for those placeholder, otherwise it return false.
+    * Each return from recursive SolvePuzzle() method contributes to end result.
+    * If the return is null, we backtrack and try with another possible candidate Word till all the placeholder are visited and all the words are tried for each place                 holders.
  
 
-6. Strategies and Degree of Efficiency
+## Strategies and Degree of Efficiency
 
-   *	With use of the Placeholder and intersection, we only have to concentrate on the placeholder and iterate through them, instead of going through each cell of the matrix.
+   * With use of the Placeholder and intersection, we only have to concentrate on the placeholder and iterate through them, instead of going through each cell of the matrix.
 
    * While solving we go through each placeholder to find out all the intersection and through those intersection we traverse to another Placeholder (forming the intersection)        and work on filing/solving them.
 
