@@ -36,7 +36,7 @@ Three java files are implementing the GridPoints, Place Holder, Intersection, an
 
 * PlaceHolder.java: a Placeholder is a place for inserting words in a crossword puzzle. For instance, below given is the place holder starting at grid point (x=0, y=0), with size ‘0’ and oriented horizontally. The crossword puzzle consists of the number of such placeholders. The same Implementation is provided in the class file.
 
-![PlaceHolder](/images/placeholder.png)
+![Alt text](https://github.com/mchaturv/SDC-Cross-word-puzzle/blob/master/images/placeholder.PNG)
 
 
 	               PlaceHolder (x = 0, y =0, size = 3, orientation = horizontal, Set<String> possible word of length 3)
@@ -45,7 +45,7 @@ Three java files are implementing the GridPoints, Place Holder, Intersection, an
 For instance, below are the two Placeholder pl1 and pl2 meeting at some point say
 GridPoint (x=3, y =1) or index [3][4]. So we treat this object made up of placeholder pl1, placeholder pl2 and the point of intersection (x=3, y=1).
  
- ![PlaceHolder](/images/intersection.png)
+ ![Alt text](https://github.com/mchaturv/SDC-Cross-word-puzzle/blob/master/images/intersection.PNG)
  	
  
  			Intersection [Placeholder P1, Placeholder p2, Grid Point(X=3,Y=1)]
@@ -54,7 +54,7 @@ GridPoint (x=3, y =1) or index [3][4]. So we treat this object made up of placeh
 
 * CrossWordPuzzle.java: Provides blueprints of the puzzle made up of the GridPoint(indexes), List of all the Placeholders and the set of all the intersections on a defined matrix of given row and column size.
 
-![PlaceHolder](/images/crossword.png)
+![PlaceHolder](https://github.com/mchaturv/SDC-Cross-word-puzzle/blob/master/images/crossword.PNG)
 
 
 
